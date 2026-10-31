@@ -1,0 +1,105 @@
+# Portfolio editor (Sveltia CMS, Decap-compatible).
+# Sign in with GitHub. Every save becomes a commit, and Netlify republishes the site.
+backend:
+  name: github
+  repo: t5v3c1fqioq-star/portfolio
+  branch: main
+media_folder: media/uploads
+public_folder: /media/uploads
+site_url: https://sadeq-alkaabi.netlify.app
+display_url: https://sadeq-alkaabi.netlify.app
+locale: en
+
+collections:
+  - name: portfolio
+    label: Portfolio · البورتفوليو
+    files:
+      - name: data
+        label: All content · كل المحتوى
+        file: data/portfolio.json
+        format: json
+        fields:
+          - name: profile
+            label: Profile · الملف الشخصي
+            widget: object
+            fields:
+              - {name: name, label: Name (EN), widget: string}
+              - {name: nameAr, label: Name (AR), widget: string}
+              - {name: role, label: Role (EN), widget: string}
+              - {name: roleAr, label: Role (AR), widget: string}
+              - {name: about, label: About (EN), widget: text}
+              - {name: aboutAr, label: About (AR), widget: text}
+              - {name: email, label: Email, widget: string}
+              - {name: phone, label: Phone (WhatsApp), widget: string}
+              - {name: phone2, label: Phone 2, widget: string, required: false}
+              - {name: telegram, label: Telegram username, widget: string, required: false}
+              - {name: location, label: Location, widget: string}
+              - {name: locationAr, label: Location (AR), widget: string, required: false}
+              - {name: heroVideo, label: Main video (playlist or mp4), widget: string}
+              - {name: heroFallback, label: Main video fallback (mp4), widget: file, required: false}
+              - {name: heroPoster, label: Main video poster, widget: image}
+          - name: categories
+            label: Sections · الأقسام
+            widget: list
+            summary: "{{en}} · {{ar}}"
+            fields:
+              - {name: id, label: ID (no spaces), widget: string}
+              - {name: en, label: Title (EN), widget: string}
+              - {name: ar, label: Title (AR), widget: string}
+              - {name: desc, label: Description, widget: text, required: false}
+              - {name: descAr, label: Description (AR), widget: text, required: false}
+          - name: projects
+            label: Videos · الفيديوهات
+            label_singular: Video
+            widget: list
+            summary: "{{title}} · {{cat}}"
+            fields:
+              - {name: id, label: ID (unique, no spaces), widget: string}
+              - {name: title, label: Title (EN), widget: string}
+              - {name: titleAr, label: Title (AR), widget: string}
+              - {name: client, label: Client, widget: string}
+              - {name: clientAr, label: Client (AR), widget: string, required: false}
+              - {name: cat, label: Section ID (cinema, ai, tvc, corporate, realestate, brands, series, events), widget: string}
+              - {name: orient, label: Orientation, widget: select, options: [{label: Vertical, value: v}, {label: Horizontal, value: h}]}
+              - {name: note, label: Short note (EN), widget: string, required: false}
+              - {name: noteAr, label: Short note (AR), widget: string, required: false}
+              - {name: video, label: Card preview video (short mp4, under 25 MB), widget: file}
+              - {name: poster, label: Thumbnail, widget: image}
+              - {name: full, label: Full video (mp4 under 25 MB, or playlist path), widget: file, required: false}
+              - {name: featured, label: Order in Best work (empty = not featured), widget: number, required: false, value_type: int}
+          - name: films
+            label: Cinematic films · الأفلام
+            widget: list
+            summary: "{{title}} ({{year}})"
+            fields:
+              - {name: id, label: ID, widget: string}
+              - {name: own, label: My own film?, widget: boolean, default: false}
+              - {name: title, label: Title (EN), widget: string}
+              - {name: titleEn, label: Subtitle (EN), widget: string, required: false}
+              - {name: titleAr, label: Title (AR), widget: string}
+              - {name: year, label: Year, widget: number, value_type: int}
+              - {name: role, label: My role (EN), widget: string}
+              - {name: roleAr, label: My role (AR), widget: string}
+              - {name: dir, label: Directed by (EN), widget: string, required: false}
+              - {name: dirAr, label: Directed by (AR), widget: string, required: false}
+              - {name: poster, label: Poster, widget: image}
+              - {name: bts, label: Behind the scenes image, widget: image, required: false}
+          - name: logos
+            label: Client logos · اللوكوات
+            widget: list
+            summary: "{{name}}"
+            fields:
+              - {name: name, label: Name, widget: string}
+              - {name: img, label: Logo (light PNG on transparent), widget: image}
+          - {name: clients, label: Client names, widget: list}
+          - name: experience
+            label: Experience · الخبرة
+            widget: list
+            summary: "{{years}} · {{org}}"
+            fields:
+              - {name: years, label: Years, widget: string}
+              - {name: org, label: Organisation, widget: string}
+              - {name: desc, label: Description, widget: string}
+              - {name: orgAr, label: Organisation (AR), widget: string, required: false}
+              - {name: descAr, label: Description (AR), widget: string, required: false}
+          - {name: tools, label: Tools, widget: list}
